@@ -50,7 +50,8 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\n[\A]-\[\033[01;31m\]\u@\[\033[01;37m\]\h:\[\033[01;33m\][\w]\[\033[00m\]\[\033[01m\]\n>\$ \[\033[00m\]'
+    #PS1='${debian_chroot:+($debian_chroot)}\n[\A]-\[\033[01;31m\]\u@\[\033[01;37m\]\h:\[\033[01;33m\][\w]\[\033[00m\]\[\033[01m\]\n>\$ \[\033[00m\]'
+    PS1=$'\n\xe2\x8c\x9a\A-\[\033[01;31m\]\u@\[\033[01;37m\]\h:\[\033[01;33m    \][\w]\[\033[00m\]\[\033[01m\]\n>\xe2\x9a\xa1 \[\033[00m\]'
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
@@ -135,7 +136,5 @@ eval "$(thefuck --alias wtf --enable-experimental-instant-mode)"
 
 export SYSTEMD_EDITOR="/usr/bin/vim" 
 export EDITOR=vim
-
-
 
 eval $(thefuck --alias)
