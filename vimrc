@@ -5,6 +5,65 @@ augroup filetype_vim
 augroup END
 " }}}
 
+" vundle {{{
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+" The following are examples of different formats supported.
+" Keep Plugin commands between vundle#begin/end.
+" plugin on GitHub repo
+Plugin 'tpope/vim-fugitive'
+" plugin from http://vim-scripts.org/vim/scripts.html
+" Plugin 'L9'
+" Git plugin not hosted on GitHub
+" git repos on your local machine (i.e. when working on your own plugin)
+" Plugin 'file:///home/gmarik/path/to/plugin'
+" The sparkup vim script is in a subdirectory of this repo called vim.
+" Pass the path to set the runtimepath properly.
+" Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+Plugin 'kaicataldo/material.vim'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+
+" Install L9 and avoid a Naming conflict if you've already installed a
+" different version somewhere else.
+" Plugin 'ascenator/L9', {'name': 'newL9'}
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
+" }}}
+
+" theme {{{
+set background=dark
+colorscheme material
+let g:material_theme_style = 'dark' 
+"default | 'palenight' | 'dark'
+let g:material_terminal_italics = 1
+let g:airline_theme = 'material'
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|'
+"let g:lightline = { 'colorscheme': 'material_vim' }
+" }}}
+
 " basic setup {{{
 " Encoding
 set encoding=utf-8
@@ -30,19 +89,19 @@ set showcmd
 set ruler
 
 " highlight current line
-set cursorline
+" set cursorline
 
 " status bar
-set laststatus=2
-set statusline=%.20F
+"set laststatus=2
+"set statusline=%.20F
 "set statusline=%f         " Path to the file
-set statusline+=\ -\      " Separator
-set statusline+=FileType: " Label
-set statusline+=%y        " Filetype of the file
-set statusline+=%=        " Switch to the right side
-set statusline+=Current:\ %-4l    " Current line
-set statusline+=/    " Separator
-set statusline+=Total:\ %-4L   " Total lines 
+"set statusline+=\ -\      " Separator
+"set statusline+=FileType: " Label
+"set statusline+=%y        " Filetype of the file
+"set statusline+=%=        " Switch to the right side
+"set statusline+=Current:\ %-4l    " Current line
+"set statusline+=/    " Separator
+"set statusline+=Total:\ %-4L   " Total lines 
 " auto source
 autocmd BufWritePost $MYVIMRC source $MYVIMRC
 autocmd BufNewFile *:write
@@ -67,6 +126,7 @@ nnoremap <space> dd
 nnoremap Y y$
 nnoremap <leader>ev :e $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
+nnoremap <leader>ip :PluginInstall<cr>
 " move between long wrapped lines
 nnoremap k gk
 nnoremap j gj
