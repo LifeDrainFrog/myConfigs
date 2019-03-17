@@ -27,13 +27,17 @@ Plugin 'tpope/vim-fugitive'
 " The sparkup vim script is in a subdirectory of this repo called vim.
 " Pass the path to set the runtimepath properly.
 " Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-Plugin 'kaicataldo/material.vim'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
 
 " Install L9 and avoid a Naming conflict if you've already installed a
 " different version somewhere else.
 " Plugin 'ascenator/L9', {'name': 'newL9'}
+
+Plugin 'scrooloose/nerdcommenter' 
+Plugin 'scrooloose/nerdtree' 
+Plugin 'majutsushi/tagbar' 
+Plugin 'honza/vim-snippets' 
+Plugin 'Lokaltog/vim-powerline' 
+
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -53,18 +57,28 @@ filetype plugin indent on    " required
 
 " theme {{{
 set background=dark
-colorscheme material
-let g:material_theme_style = 'dark' 
-"default | 'palenight' | 'dark'
-let g:material_terminal_italics = 1
-let g:airline_theme = 'material'
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#left_sep = ' '
-let g:airline#extensions#tabline#left_alt_sep = '|'
-"let g:lightline = { 'colorscheme': 'material_vim' }
+colorscheme solarized
+
+"PowerLine Settings
+let g:Powerline_symbols = 'fancy'
+
 " }}}
 
 " basic setup {{{
+"set message language  
+let $LANG = 'en'  
+
+"set menu's language of gvim. no spaces beside '='  
+set langmenu=en   
+
+set termencoding=utf-8
+
+set fileencoding=utf-8
+
+set fileencodings=ucs-bom,utf-8,chinese,cp936
+
+set guifont=Consolas:h12
+
 " Encoding
 set encoding=utf-8
 " Set 'nocompatible' to ward off unexpected things that your distro might
@@ -102,6 +116,7 @@ set ruler
 "set statusline+=Current:\ %-4l    " Current line
 "set statusline+=/    " Separator
 "set statusline+=Total:\ %-4L   " Total lines 
+
 " auto source
 autocmd BufWritePost $MYVIMRC source $MYVIMRC
 autocmd BufNewFile *:write
