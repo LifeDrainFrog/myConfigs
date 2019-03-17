@@ -15,28 +15,11 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
-" The following are examples of different formats supported.
-" Keep Plugin commands between vundle#begin/end.
-" plugin on GitHub repo
-Plugin 'tpope/vim-fugitive'
-" plugin from http://vim-scripts.org/vim/scripts.html
-" Plugin 'L9'
-" Git plugin not hosted on GitHub
-" git repos on your local machine (i.e. when working on your own plugin)
-" Plugin 'file:///home/gmarik/path/to/plugin'
-" The sparkup vim script is in a subdirectory of this repo called vim.
-" Pass the path to set the runtimepath properly.
-" Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-
-" Install L9 and avoid a Naming conflict if you've already installed a
-" different version somewhere else.
-" Plugin 'ascenator/L9', {'name': 'newL9'}
-
 Plugin 'scrooloose/nerdcommenter' 
 Plugin 'scrooloose/nerdtree' 
 Plugin 'majutsushi/tagbar' 
 Plugin 'honza/vim-snippets' 
-Plugin 'Lokaltog/vim-powerline' 
+Plugin 'vim-airline/vim-airline'
 
 
 " All of your Plugins must be added before the following line
@@ -59,8 +42,10 @@ filetype plugin indent on    " required
 set background=dark
 colorscheme solarized
 
-"PowerLine Settings
-let g:Powerline_symbols = 'fancy'
+"airline Settings
+let laststatus =2
+let g:airline_powerline_fonts = 1
+let g:airline_theme= "dark"
 
 " }}}
 
