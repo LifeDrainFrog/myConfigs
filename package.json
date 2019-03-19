@@ -1,5 +1,5 @@
 {
-  "name": "myConfig",
+  "name": "myConfigs",
   "author": "LifeDrainFrog",
   "scripts": {
     "lint": "eslint --fix ./scripts/build.js",
