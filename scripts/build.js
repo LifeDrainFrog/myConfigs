@@ -1,6 +1,6 @@
 // setting
 const fs = require('fs')
-const output_filename = './test.md' 
+const output_filename = './README.md' 
 const package_json = require('../package')
 const repo_author = package_json.author
 const repo_name = package_json.name
