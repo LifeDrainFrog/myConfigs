@@ -1,25 +1,110 @@
-# configuration file
-some personal configurations:book:
+# myConfigs
 
-## Table of Contents
-1. [vimrc](#vimrc) :pencil2:
-2. [bashrc](#bashrc) :art:
-3. [gitconfig](#gitconfig) :e-mail:
+[![build](https://travis-ci.com/LifeDrainFrog/myConfigs.svg?branch=master)](https://travis-ci.com/LifeDrainFrog/myConfigs)
 
-## vimrc
+Some personal configuration files
+
+## Table Of Contents
+
+- [vimrc](#vimrc):pencil2: 
+- [bashrc](#bashrc):e-mail: 
+- [gitconfig](#gitconfig):art: 
+
+### vimrc
+	 
 [top](#table-of-contents)
-```vim
-" Vimscript file settings {{{
+
+```vim		    
+" ========== Vimscript file settings ========== {{{
 augroup filetype_vim
-    autocmd!
-    autocmd FileType vim setlocal foldmethod=marker
+autocmd!
+autocmd FileType vim setlocal foldmethod=marker
 augroup END
 " }}}
 
-" vundle {{{
+" ========== basic setup ========== {{{
+
+"behave mswin
+"source $VIMRUNTIME/vimrc_example.vim
+
+set nocompatible              " be iMproved, required
+"syntax highlighting
+syntax on
+
+"close sounds on erros
+set noerrorbells
+set novisualbell
+set t_vb=
+set tm=500
+
+" ctrl-a/ctrl-x
+set nrformats=
+
+"show linenumber
+set number
+set relativenumber
+
+"check filetype
+filetype on
+
+"autoindent
+set autoindent
+
+"smartindent
+set smartindent
+
+"show match 
+set showmatch
+
+"show command line
+set showcmd
+"set cmdheight=2
+
+" Better command-line completion
+set wildmenu
+
+"close backup
+"set nobackup
+
+"show cursor location
+set ruler
+
+" current line highlighting
+set cursorline
+
+" highlight searchs
+set hlsearch
+set incsearch
+
+"set gui font for high resolutions
+set guifont=DejaVu_Sans_Mono_for_Powerline:h16:b:cDEFAULT
+set guifontwide=DejaVu_Sans_Mono_for_Powerline:h16
+
+" encoding
+set fileencodings=utf-8,cp936
+set fileencoding=utf-8
+set encoding=utf-8
+"set fencs=utf-8
+
+" menu language
+set langmenu=en_US.UTF-8
+
+" chinese menu 
+source $VIMRUNTIME/delmenu.vim
+source $VIMRUNTIME/menu.vim
+
+" message 
+"language messages en_US.utf-8 
+
+" auto-reload working directory
+autocmd BufEnter * lcd %:p:h
+"}}}
+
+" ========== Vundle ========== {{{
+filetype off                  " required
 " set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+set rtp+=E:/Vim/vimfiles/bundle/Vundle.vim
+call vundle#begin('E:/Vim/vimfiles/bundle/')
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
 
@@ -29,22 +114,22 @@ Plugin 'VundleVim/Vundle.vim'
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
-Plugin 'tpope/vim-fugitive'
 " plugin from http://vim-scripts.org/vim/scripts.html
 " Plugin 'L9'
 " Git plugin not hosted on GitHub
 " git repos on your local machine (i.e. when working on your own plugin)
-" Plugin 'file:///home/gmarik/path/to/plugin'
+"Plugin 'file:///home/gmarik/path/to/plugin'
 " The sparkup vim script is in a subdirectory of this repo called vim.
 " Pass the path to set the runtimepath properly.
-" Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-Plugin 'kaicataldo/material.vim'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-
 " Install L9 and avoid a Naming conflict if you've already installed a
 " different version somewhere else.
 " Plugin 'ascenator/L9', {'name': 'newL9'}
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'scrooloose/nerdtree'
+Plugin 'Chiel92/vim-autoformat'
+Plugin 'tpope/vim-commentary'
+Plugin 'tpope/vim-surround'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -62,96 +147,129 @@ filetype plugin indent on    " required
 " Put your non-Plugin stuff after this line
 " }}}
 
-" theme {{{
-set background=dark
-colorscheme material
-let g:material_theme_style = 'dark' 
-"default | 'palenight' | 'dark'
-let g:material_terminal_italics = 1
-let g:airline_theme = 'material'
+" ========== theme ========= {{{
+
+"STATUS BAR
+set laststatus=2
+
+set t_Co=256
+colorscheme Solarized
+" light or dark
+set background=light
+
+"vim-airline
+set ambiwidth=double
 let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#left_sep = ' '
-let g:airline#extensions#tabline#left_alt_sep = '|'
-"let g:lightline = { 'colorscheme': 'material_vim' }
-" }}}
+let g:airline_powerline_fonts = 1
+let g:airline_theme = "deus"
 
-" basic setup {{{
-" Encoding
-set encoding=utf-8
-" Set 'nocompatible' to ward off unexpected things that your distro might
-" have made, as well as sanely reset options when re-sourcing .vimrc
-set nocompatible
-" syntax highlighting
-syntax on
-" Better command-line completion
-set wildmenu
-" show line number
-set number
-" highlight searchs
-set hlsearch
-" Use case insensitive search, except when using capital letters
-set ignorecase
-set smartcase
-" show partial commands in the last line of the screen
-set showcmd
+if !exists('g:airline_symbols')
+let g:airline_symbols = {}
+endif
 
-" Display the cursor position on the last line of the screen or in the status
-" line of a window
-set ruler
+" unicode symbols
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = '¶'
+let g:airline_symbols.maxlinenr = ''
+let g:airline_symbols.paste = 'ρ'
+let g:airline_symbols.whitespace = 'Ξ'
 
-" highlight current line
-" set cursorline
+"}}}
 
-" status bar
-"set laststatus=2
-"set statusline=%.20F
-"set statusline=%f         " Path to the file
-"set statusline+=\ -\      " Separator
-"set statusline+=FileType: " Label
-"set statusline+=%y        " Filetype of the file
-"set statusline+=%=        " Switch to the right side
-"set statusline+=Current:\ %-4l    " Current line
-"set statusline+=/    " Separator
-"set statusline+=Total:\ %-4L   " Total lines 
-" auto source
+" ========== automation ========== {{{
+" automatically source $MYVIMRC
 autocmd BufWritePost $MYVIMRC source $MYVIMRC
-autocmd BufNewFile *:write
+autocmd BufNewFile * :write
+" auto-format html
+autocmd BufWritePre *.html :normal gg=G
+autocmd FileType javascript nnoremap <buffer> <localleader>c I//<esc>
+autocmd FileType python     nnoremap <buffer> <localleader>c I#<esc>
+autocmd FileType c nnoremap <buffer> <localleader>c I//<esc>
+autocmd FileType c iabbrev <buffer> rtt return 
 " }}}
 
-" map-key {{{
-" leader
+" ========== key mapping ========== {{{
+
 let mapleader = "-"
+let maplocalleader = "\\"
 
-" local leader
-let maplocalleader = ","
+nnoremap <leader><C-o>:NERDTreeToggle %<CR>
+nnoremap <leader>r :NERDTreeFind<cr>
 
-" insert mode
+inoremap jk <ESC>
 inoremap <esc> <nop>
-
-inoremap jk <esc>
-inoremap <c-d> <esc>ddo
-inoremap <c-u> <esc>vbUwa
-
-" normal mode
-nnoremap <space> dd
-nnoremap Y y$
-nnoremap <leader>ev :e $MYVIMRC<cr>
-nnoremap <leader>sv :source $MYVIMRC<cr>
-nnoremap <leader>ip :PluginInstall<cr>
-" move between long wrapped lines
-nnoremap k gk
-nnoremap j gj
 
 noremap <Up> <nop>
 noremap <Down> <nop>
 noremap <Left> <nop>
 noremap <Right> <nop>
+
+nnoremap j gj
+nnoremap k gk
+nnoremap gj j
+nnoremap gk k
+
+" nnoremap <TAB> :%!astyle<CR>
+
+noremap Y y$
+"
+nnoremap <leader>dd O<esc>jddk
+"
+nnoremap <space> dd
+
+"
+nnoremap \ x
+
+vnoremap \ U
+
+inoremap <c-d> <esc>ddi
+inoremap <c-u> <esc>viwUi<esc>
+
+" custom mapping
+nnoremap <F3> :Autoformat<CR>
+nnoremap <leader>d dw
+nnoremap <leader>h :noh<CR>
+nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+nnoremap <leader>sv :source $MYVIMRC<cr>
+nnoremap <leader>ip :PluginInstall<cr>
+
+nnoremap <leader>c ^I//<esc><Space>
+nnoremap <c-_> ^I//<esc>
+
 " }}}
+
+" ========= abbreviation ========= {{{
+iabbrev adn and
+iabbrev waht what
+iabbrev tehn then
+
+"}}}
+
+" ========= autoformat tool ========= {{{
+"autocmd BufNewFile,BufRead *.c set formatprg=astyle 
+"autocmd BufNewFile,BufRead *.cpp set formatprg=astyle 
+
+
+" let g:formatterpath = ['path\to\formatter\bin']
+let g:autoformat_autoindent = 0
+let g:autoformat_retab = 0
+let g:autoformat_remove_trailing_spaces = 0
+let g:autoformat_verbosemode = 1
+" }}}
+
+
 ```
 
-## bashrc
+### bashrc
+	 
 [top](#table-of-contents)
-```shell
+
+```bash		    
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
@@ -179,12 +297,12 @@ shopt -s checkwinsize
 
 # set variable identifying the chroot you work in (used in the prompt below)
 if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
-    debian_chroot=$(cat /etc/debian_chroot)
+debian_chroot=$(cat /etc/debian_chroot)
 fi
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
-    xterm-color) color_prompt=yes;;
+xterm-color) color_prompt=yes;;
 esac
 
 # uncomment for a colored prompt, if the terminal has the capability; turned
@@ -193,43 +311,43 @@ esac
 force_color_prompt=yes
 
 if [ -n "$force_color_prompt" ]; then
-    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
 	# We have color support; assume it's compliant with Ecma-48
 	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
 	# a case would tend to support setf rather than setaf.)
 	color_prompt=yes
-    else
+else
 	color_prompt=
-    fi
+fi
 fi
 
 if [ "$color_prompt" = yes ]; then
-    #PS1='${debian_chroot:+($debian_chroot)}\n[\A]-\[\033[01;31m\]\u@\[\033[01;37m\]\h:\[\033[01;33m\][\w]\[\033[00m\]\[\033[01m\]\n>\$ \[\033[00m\]'
-    PS1=$'\n\xe2\x8c\x9a\A-\[\033[01;31m\]\u@\[\033[01;37m\]\h:\[\033[01;33m    \][\w]\[\033[00m\]\[\033[01m\]\n>\xe2\x9a\xa1 \[\033[00m\]'
+#PS1='${debian_chroot:+($debian_chroot)}\n[\A]-\[\033[01;31m\]\u@\[\033[01;37m\]\h:\[\033[01;33m\][\w]\[\033[00m\]\[\033[01m\]\n>\$ \[\033[00m\]'
+PS1=$'\n\xe2\x8c\x9a\A-\[\033[01;31m\]\u@\[\033[01;37m\]\h:\[\033[01;33m    \][\w]\[\033[00m\]\[\033[01m\]\n>\xe2\x9a\xa1 \[\033[00m\]'
 else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
 unset color_prompt force_color_prompt
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
 xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-    ;;
+PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+;;
 *)
-    ;;
+;;
 esac
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-    alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
+test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+alias ls='ls --color=auto'
+alias dir='dir --color=auto'
+#alias vdir='vdir --color=auto'
 
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
 fi
 
 # some more ls aliases
@@ -243,7 +361,7 @@ alias l='ls -CF'
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
 
 if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
+. ~/.bash_aliases
 fi
 
 # enable programmable completion features (you don't need to enable
@@ -257,14 +375,14 @@ fi
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$(CONDA_REPORT_ERRORS=false '/root/anaconda3/bin/conda' shell.bash hook 2> /dev/null)"
 if [ $? -eq 0 ]; then
-    \eval "$__conda_setup"
+\eval "$__conda_setup"
 else
-    if [ -f "/root/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/root/anaconda3/etc/profile.d/conda.sh"
-        CONDA_CHANGEPS1=false conda activate base
-    else
-        \export PATH="/root/anaconda3/bin:$PATH"
-    fi
+if [ -f "/root/anaconda3/etc/profile.d/conda.sh" ]; then
+. "/root/anaconda3/etc/profile.d/conda.sh"
+CONDA_CHANGEPS1=false conda activate base
+else
+\export PATH="/root/anaconda3/bin:$PATH"
+fi
 fi
 unset __conda_setup
 # <<< conda init <<<
@@ -273,14 +391,14 @@ unset __conda_setup
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$(CONDA_REPORT_ERRORS=false '/root/anaconda3/bin/conda' shell.bash hook 2> /dev/null)"
 if [ $? -eq 0 ]; then
-    \eval "$__conda_setup"
+\eval "$__conda_setup"
 else
-    if [ -f "/root/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/root/anaconda3/etc/profile.d/conda.sh"
-        CONDA_CHANGEPS1=false conda activate base
-    else
-        \export PATH="/root/anaconda3/bin:$PATH"
-    fi
+if [ -f "/root/anaconda3/etc/profile.d/conda.sh" ]; then
+. "/root/anaconda3/etc/profile.d/conda.sh"
+CONDA_CHANGEPS1=false conda activate base
+else
+\export PATH="/root/anaconda3/bin:$PATH"
+fi
 fi
 unset __conda_setup
 # <<< conda init <<<
@@ -292,10 +410,14 @@ export SYSTEMD_EDITOR="/usr/bin/vim"
 export EDITOR=vim
 
 eval $(thefuck --alias)
+
 ```
-## gitconfig
+
+### gitconfig
+	 
 [top](#table-of-contents)
-```
+
+```		    
 [user]
 name = yourname
 email = your@email.com
@@ -316,4 +438,5 @@ editor = vim
 gpgsign = true
 [push]
 default = simple
+
 ```
