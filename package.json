@@ -1,0 +1,12 @@
+{
+  "name": "myConfig",
+  "author": "LifeDrainFrog",
+  "scripts": {
+    "lint": "eslint --fix ./scripts/build.js",
+    "build": "node --experimental-modules ./scripts/build.js"
+  },
+  "devDependencies": {
+    "eslint": "^5.15.2",
+    "prettier": "^1.16.4"
+  }
+}
