@@ -8,8 +8,7 @@ script:
   - npm run build
 
 after_success:
-  - bash ./scripts/deploy.sh
-
+  - if [ "$TRAVIS_EVENT_TYPE" = "cron" ]; then bash ./scripts/deploy.sh; fi  
 cache:
   npm: true
   directories:

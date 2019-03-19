@@ -17,8 +17,8 @@ const config_list = [
   }
 ]
 
-const travis_repo_url = `https://travis-ci.org/${repo_author}/${repo_name}`
-const travis_badge_url = `https://travis-ci.org/${repo_author}/${repo_name}.svg?branch=master`
+const travis_repo_url = `https://travis-ci.com/${repo_author}/${repo_name}`
+const travis_badge_url = `https://travis-ci.com/${repo_author}/${repo_name}.svg?branch=master`
 
 const toc_name = 'Table Of Contents'
 const top_name = 'top'
