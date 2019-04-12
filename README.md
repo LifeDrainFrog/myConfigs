@@ -23,6 +23,22 @@ augroup END
 " }}}
 
 " ========== basic setup ========== {{{
+" encoding
+set fileencodings=utf-8,cp936
+set fileencoding=utf-8
+set encoding=utf-8
+
+
+" set shell program, default is cmd
+
+if has("windows")
+	" set shell=C:\WINDOWS\System32\wsl.exe
+	set shell=\"C:\WINDOWS\System32\cmd.exe"\ -f
+	" set shellpipe=|
+	" set shellredir=>
+	set shellcmdflag=/c
+endif
+
 
 "behave mswin
 "source $VIMRUNTIME/vimrc_example.vim
@@ -37,7 +53,14 @@ set novisualbell
 set t_vb=
 set tm=500
 
-" ctrl-a/ctrl-x
+
+" display tab space enter
+set list
+set listchars=eol:⏎,tab:⌟.,trail:⌙,nbsp:.
+" show break
+set showbreak=⌞
+
+" ctrl-a/ctrl-x as decimal number
 set nrformats=
 
 "show linenumber
@@ -47,11 +70,15 @@ set relativenumber
 "check filetype
 filetype on
 
-"autoindent
-set autoindent
+"shift indent
+set tabstop=8
+"set expandtab
+"set shiftwidth=0
+" autoindent
+" set autoindent
 
 "smartindent
-set smartindent
+"set smartindent
 
 "show match 
 set showmatch
@@ -77,13 +104,9 @@ set hlsearch
 set incsearch
 
 "set gui font for high resolutions
-set guifont=DejaVu_Sans_Mono_for_Powerline:h16:b:cDEFAULT
-set guifontwide=DejaVu_Sans_Mono_for_Powerline:h16
+set guifont=DejaVu_Sans_Mono_for_Powerline:h12:b
+"set guifontwide=DejaVu_Sans_Mono_for_Powerline:h16
 
-" encoding
-set fileencodings=utf-8,cp936
-set fileencoding=utf-8
-set encoding=utf-8
 "set fencs=utf-8
 
 " menu language
@@ -97,7 +120,7 @@ source $VIMRUNTIME/menu.vim
 "language messages en_US.utf-8 
 
 " auto-reload working directory
-autocmd BufEnter * lcd %:p:h
+" autocmd BufEnter * lcd %:p:h
 "}}}
 
 " ========== Vundle ========== {{{
@@ -184,7 +207,7 @@ let g:airline_symbols.whitespace = 'Ξ'
 " ========== automation ========== {{{
 " automatically source $MYVIMRC
 autocmd BufWritePost $MYVIMRC source $MYVIMRC
-autocmd BufNewFile * :write
+"autocmd BufNewFile * :write
 " auto-format html
 autocmd BufWritePre *.html :normal gg=G
 autocmd FileType javascript nnoremap <buffer> <localleader>c I//<esc>
@@ -198,11 +221,8 @@ autocmd FileType c iabbrev <buffer> rtt return
 let mapleader = "-"
 let maplocalleader = "\\"
 
-nnoremap <leader><C-o>:NERDTreeToggle %<CR>
-nnoremap <leader>r :NERDTreeFind<cr>
 
 inoremap jk <ESC>
-inoremap <esc> <nop>
 
 noremap <Up> <nop>
 noremap <Down> <nop>
@@ -214,11 +234,10 @@ nnoremap k gk
 nnoremap gj j
 nnoremap gk k
 
-" nnoremap <TAB> :%!astyle<CR>
+" join lines without adding spaces
+nnoremap J gJ
 
 noremap Y y$
-"
-nnoremap <leader>dd O<esc>jddk
 "
 nnoremap <space> dd
 
@@ -227,20 +246,22 @@ nnoremap \ x
 
 vnoremap \ U
 
-inoremap <c-d> <esc>ddi
-inoremap <c-u> <esc>viwUi<esc>
+"inoremap <c-d> <esc>ddi
+"inoremap <c-u> <esc>viwUi<esc>
 
 " custom mapping
-nnoremap <F3> :Autoformat<CR>
-nnoremap <leader>d dw
+" nnoremap <F3> :Autoformat<CR>
+nnoremap <leader>t :bel terminal<CR>
+nnoremap <leader>o :NERDTreeToggle %<CR>
+nnoremap <leader>r :NERDTreeFind<cr>
+inoremap { {}<ESC>ha<CR><CR><ESC>ka
+nnoremap <F3> :%!astyle<CR>
+nnoremap <leader>n :tabn<CR>
+nnoremap <leader>p :tabp<CR>
 nnoremap <leader>h :noh<CR>
-nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+nnoremap <leader>ev :tabe $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 nnoremap <leader>ip :PluginInstall<cr>
-
-nnoremap <leader>c ^I//<esc><Space>
-nnoremap <c-_> ^I//<esc>
-
 " }}}
 
 " ========= abbreviation ========= {{{
@@ -251,15 +272,14 @@ iabbrev tehn then
 "}}}
 
 " ========= autoformat tool ========= {{{
-"autocmd BufNewFile,BufRead *.c set formatprg=astyle 
-"autocmd BufNewFile,BufRead *.cpp set formatprg=astyle 
+autocmd BufNewFile,BufRead *.c set formatprg=astyle 
+autocmd BufNewFile,BufRead *.cpp set formatprg=astyle 
 
-
-" let g:formatterpath = ['path\to\formatter\bin']
-let g:autoformat_autoindent = 0
-let g:autoformat_retab = 0
-let g:autoformat_remove_trailing_spaces = 0
-let g:autoformat_verbosemode = 1
+" let g:formatterpath = ['E:\Vim\AStyle\bin']
+"let g:autoformat_autoindent = 0
+"let g:autoformat_retab = 0
+"let g:autoformat_remove_trailing_spaces = 0
+"let g:autoformat_verbosemode = 1
 " }}}
 
 
@@ -431,12 +451,12 @@ df = diff
 ci = commit
 last = log -1 HEAD
 visual = !gitk
-[core]
-autocrlf = input
-editor = vim
+	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+	lg-ascii = log --graph --pretty=format:'%h -%d %s (%cr) <%an>' --abbrev-commit
+	adog = log --all --decorate --oneline --graph
 [commit]
-gpgsign = true
-[push]
-default = simple
+	gpgsign = true
+[pull]
+	rebase = true
 
 ```
