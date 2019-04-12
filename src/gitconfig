@@ -3,18 +3,18 @@ name = yourname
 email = your@email.com
 signingkey= yoursigningkey
 [alias]
-st = status
-cm = commit -m
-br = branch
-co = checkout
-df = diff
-ci = commit
-last = log -1 HEAD
-visual = !gitk
-[core]
-autocrlf = input
-editor = vim
+        st = status
+        cm = commit -m
+        br = branch
+        co = checkout
+        df = diff
+        ci = commit
+        last = log -1 HEAD
+        visual = !gitk
+	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+	lg-ascii = log --graph --pretty=format:'%h -%d %s (%cr) <%an>' --abbrev-commit
+	adog = log --all --decorate --oneline --graph
 [commit]
-gpgsign = true
-[push]
-default = simple
+	gpgsign = true
+[pull]
+	rebase = true

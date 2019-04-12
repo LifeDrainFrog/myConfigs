@@ -1,5 +1,7 @@
 #!bin/bash
 
+set -ev
+
 # set git configuration
 git config --global user.name tizee-bot
 git config --global user.email tizee-bot@travis-ci.org
