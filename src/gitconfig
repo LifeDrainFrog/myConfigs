@@ -14,7 +14,10 @@ signingkey= yoursigningkey
 	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
 	lg-ascii = log --graph --pretty=format:'%h -%d %s (%cr) <%an>' --abbrev-commit
 	adog = log --all --decorate --oneline --graph
+	alias.ls=ls-tree --full-tree --name-only -r HEAD
 [commit]
 	gpgsign = true
 [pull]
 	rebase = true
+[core]
+	editor=vim
