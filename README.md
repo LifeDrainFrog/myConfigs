@@ -28,15 +28,19 @@ set fileencodings=utf-8,cp936
 set fileencoding=utf-8
 set encoding=utf-8
 
+aug python
+" ftype/python.vim overwrites this
+au FileType python setlocal ts=8 sts=4 sw=8 noexpandtab
+aug end
 
 " set shell program, default is cmd
 
 if has("windows")
 	" set shell=C:\WINDOWS\System32\wsl.exe
-	set shell=\"C:\WINDOWS\System32\cmd.exe"\ -f
+	" set shell=\"C:\WINDOWS\System32\cmd.exe"\ -f
 	" set shellpipe=|
 	" set shellredir=>
-	set shellcmdflag=/c
+	" set shellcmdflag=/c
 endif
 
 
@@ -73,12 +77,11 @@ filetype on
 "shift indent
 set tabstop=8
 "set expandtab
-"set shiftwidth=0
+set shiftwidth=0
 " autoindent
-" set autoindent
-
+set autoindent
 "smartindent
-"set smartindent
+set smartindent
 
 "show match 
 set showmatch
@@ -104,11 +107,23 @@ set hlsearch
 set incsearch
 
 "set gui font for high resolutions
-set guifont=DejaVu_Sans_Mono_for_Powerline:h12:b
+set guifont=DejaVu_Sans_Mono_for_Powerline:h12:cANSI
 "set guifontwide=DejaVu_Sans_Mono_for_Powerline:h16
 
 "set fencs=utf-8
 
+" ture color
+if (has("nvim"))
+"For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+endif
+
+"For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
+"Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
+" < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
+if (has("termguicolors"))
+set termguicolors
+endif
 " menu language
 set langmenu=en_US.UTF-8
 
@@ -147,12 +162,16 @@ Plugin 'VundleVim/Vundle.vim'
 " Install L9 and avoid a Naming conflict if you've already installed a
 " different version somewhere else.
 " Plugin 'ascenator/L9', {'name': 'newL9'}
+
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'scrooloose/nerdtree'
 Plugin 'Chiel92/vim-autoformat'
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-surround'
+Plugin 'kaicataldo/material.vim'
+Plugin 'tpope/vim-fugitive'
+Plugin 'ctrlpvim/ctrlp.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -168,6 +187,9 @@ filetype plugin indent on    " required
 "
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
+
+" The following autocommand will cause the quickfix window to open after any grep invocation:
+autocmd QuickFixCmdPost *grep* cwindow
 " }}}
 
 " ========== theme ========= {{{
@@ -175,16 +197,19 @@ filetype plugin indent on    " required
 "STATUS BAR
 set laststatus=2
 
-set t_Co=256
-colorscheme Solarized
+" set t_Co=256
 " light or dark
-set background=light
+set background=dark
+colorscheme material 
+" let g:material_theme_style = 'default' | 'palenight' | 'dark'
+let g:material_theme_style = 'default'
+let g:material_terminal_italics = 1
 
 "vim-airline
 set ambiwidth=double
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
-let g:airline_theme = "deus"
+let g:airline_theme = 'material'
 
 if !exists('g:airline_symbols')
 let g:airline_symbols = {}
@@ -251,13 +276,22 @@ vnoremap \ U
 
 " custom mapping
 " nnoremap <F3> :Autoformat<CR>
-nnoremap <leader>t :bel terminal<CR>
+
+" termianl shortcut
+" nnoremap <leader>t :bel terminal<CR>
+nnoremap <leader>t :wincmd b \| bel terminal<CR>
+" NerdTree shortcut
+"nnoremap nn :NERDTree %<CR>
 nnoremap <leader>o :NERDTreeToggle %<CR>
 nnoremap <leader>r :NERDTreeFind<cr>
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+
 inoremap { {}<ESC>ha<CR><CR><ESC>ka
 nnoremap <F3> :%!astyle<CR>
 nnoremap <leader>n :tabn<CR>
 nnoremap <leader>p :tabp<CR>
+" close highlighting
 nnoremap <leader>h :noh<CR>
 nnoremap <leader>ev :tabe $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
@@ -454,9 +488,12 @@ visual = !gitk
 	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
 	lg-ascii = log --graph --pretty=format:'%h -%d %s (%cr) <%an>' --abbrev-commit
 	adog = log --all --decorate --oneline --graph
+	alias.ls=ls-tree --full-tree --name-only -r HEAD
 [commit]
 	gpgsign = true
 [pull]
 	rebase = true
+[core]
+	editor=vim
 
 ```
