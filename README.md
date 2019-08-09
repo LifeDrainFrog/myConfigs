@@ -1,6 +1,6 @@
 # myConfigs
 
-[![build](https://travis-ci.com/tizee/myConfigs.svg?branch=master)](https://travis-ci.com/LifeDrainFrog/myConfigs)
+[![build](https://travis-ci.com/LifeDrainFrog/myConfigs.svg?branch=master)](https://travis-ci.com/LifeDrainFrog/myConfigs)
 
 Some personal configuration files
 
